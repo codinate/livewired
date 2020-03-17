@@ -13,14 +13,14 @@ declare(strict_types=1);
 
 namespace KodeKeep\Livewired\Components;
 
-use KodeKeep\Teams\Contracts\TeamInvitation;
-
 class PendingInvitations extends Component
 {
     use Concerns\InteractsWithUser;
 
-    public function acceptInvitation(TeamInvitation $invitation): void
+    public function acceptInvitation(string $invitationId): void
     {
+        $invitation = $this->user->invitations()->findOrFail($invitationId);
+
         abort_unless($this->user->id === $invitation->user_id, 404);
 
         $invitation->team->addMember($this->user, $invitation->role, $invitation->permissions);
@@ -28,8 +28,10 @@ class PendingInvitations extends Component
         $invitation->delete();
     }
 
-    public function rejectInvitation(TeamInvitation $invitation): void
+    public function rejectInvitation(string $invitationId): void
     {
+        $invitation = $this->user->invitations()->findOrFail($invitationId);
+
         abort_unless($this->user->id === $invitation->user_id, 404);
 
         $invitation->delete();
