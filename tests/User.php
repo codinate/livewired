@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 use KodeKeep\Addresses\Concerns\HasAddresses;
 use KodeKeep\NotificationMethods\Concerns\HasNotificationMethods;
 use KodeKeep\Teams\Concerns\HasTeams;
-use Laravel\Airlock\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\PersonalDataSelection;
 

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace KodeKeep\Livewired\Components;
 
-use Laravel\Airlock\PersonalAccessToken;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class UpdatePersonalAccessToken extends Component
 {
