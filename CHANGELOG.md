@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## 0.5.4 - 2020-03-21
+
+### Changed
+
+- Replaced `laravel/airlock` with `laravel/sanctum`
+
+## 0.5.3 - 2020-03-17
+
+### Fixed
+
+- Expect invitation id for acceptance/rejection
+
 ## 0.5.2 - 2020-03-04
 
 ### Added
