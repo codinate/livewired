@@ -16,7 +16,6 @@ namespace KodeKeep\Livewired\Components;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Str;
 use KodeKeep\Teams\Contracts\Team;
-use Ramsey\Uuid\Uuid;
 
 class InviteTeamMember extends Component
 {
@@ -53,9 +52,11 @@ class InviteTeamMember extends Component
 
         $invitation = $this->createInvitation($invitedUser);
 
-        $invitation->user_id
-            ? $this->inviteExistingUser($invitation)
-            : $this->inviteNewUser($invitation);
+        if (is_null($invitation->user_id)) {
+            $this->inviteNewUser($invitation);
+        } else {
+            $this->inviteExistingUser($invitation);
+        }
 
         $this->reset();
 
@@ -75,7 +76,6 @@ class InviteTeamMember extends Component
     protected function createInvitation(?Authenticatable $invitedUser)
     {
         return $this->team->invitations()->create([
-            'id'           => Uuid::uuid4(),
             'user_id'      => $invitedUser ? $invitedUser->id : null,
             'role'         => $this->role,
             'permissions'  => $this->permissions,
