@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## 0.5.6 - 2020-03-27
+
+### Chaned
+
+- Removed redirects after switching teams to let `before` and `after` handle them if needed.
+
 ## 0.5.5 - 2020-03-24
 
 ### Removed
