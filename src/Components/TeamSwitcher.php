@@ -24,7 +24,5 @@ class TeamSwitcher extends Component
         abort_unless($this->user->onTeam($team), 404);
 
         $this->user->switchToTeam($team);
-
-        $this->redirect('/');
     }
 }

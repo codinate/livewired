@@ -28,8 +28,6 @@ class ManageTeams extends Component
         abort_unless($this->user->onTeam($team), 403);
 
         $this->user->switchToTeam($team);
-
-        $this->redirect('/');
     }
 
     public function deleteTeam(string $id): void
