@@ -21,7 +21,7 @@ class PendingInvitations extends Component
     {
         $invitation = $this->user->invitations()->findOrFail($invitationId);
 
-        abort_unless($this->user->id === $invitation->user_id, 404);
+        abort_unless($this->user->id === (int) $invitation->user_id, 404);
 
         $invitation->team->addMember($this->user, $invitation->role, $invitation->permissions);
 
@@ -32,7 +32,7 @@ class PendingInvitations extends Component
     {
         $invitation = $this->user->invitations()->findOrFail($invitationId);
 
-        abort_unless($this->user->id === $invitation->user_id, 404);
+        abort_unless($this->user->id === (int) $invitation->user_id, 404);
 
         $invitation->delete();
     }
