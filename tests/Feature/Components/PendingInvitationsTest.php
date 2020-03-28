@@ -47,7 +47,7 @@ class PendingInvitationsTest extends TestCase
         ]);
 
         Livewire::test(PendingInvitations::class)
-            ->call('acceptInvitation', $invitation);
+            ->call('acceptInvitation', $invitation->id);
 
         $this->assertDatabaseHas('team_users', [
             'team_id' => $user->id,
@@ -78,7 +78,7 @@ class PendingInvitationsTest extends TestCase
         ]);
 
         Livewire::test(PendingInvitations::class)
-            ->call('rejectInvitation', $invitation);
+            ->call('rejectInvitation', $invitation->id);
 
         $this->assertDatabaseMissing('team_users', [
             'team_id' => $user->id,

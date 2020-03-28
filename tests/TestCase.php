@@ -21,8 +21,8 @@ use KodeKeep\Livewired\Providers\LivewiredServiceProvider;
 use KodeKeep\NotificationMethods\Providers\NotificationMethodsServiceProvider;
 use KodeKeep\Teams\Contracts\TeamInvitation;
 use KodeKeep\Teams\Providers\TeamsServiceProvider;
-use Laravel\Sanctum\SanctumServiceProvider;
 use Laravel\Sanctum\PersonalAccessToken;
+use Laravel\Sanctum\SanctumServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Mpociot\VatCalculator\VatCalculatorServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -112,11 +112,11 @@ abstract class TestCase extends Orchestra
     {
         return [
             AddressesServiceProvider::class,
-            SanctumServiceProvider::class,
             LivewiredServiceProvider::class,
             LivewireServiceProvider::class,
             NotificationMethodsServiceProvider::class,
             PersonalDataExportServiceProvider::class,
+            SanctumServiceProvider::class,
             TeamsServiceProvider::class,
             TwoFactorServiceProvider::class,
             VatCalculatorServiceProvider::class,
