@@ -11,9 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace KodeKeep\Livewired\Feature\Components;
+namespace KodeKeep\Livewired\Tests\Feature\Components\Passport;
 
-use KodeKeep\Livewired\Components\CreatePersonalAccessToken;
+use Illuminate\Support\Facades\Hash;
+use KodeKeep\Livewired\Components\Passport\CreatePersonalAccessToken;
 use KodeKeep\Livewired\Tests\TestCase;
 use Livewire\Livewire;
 
@@ -22,7 +23,7 @@ class CreatePersonalAccessTokenTest extends TestCase
     /** @test */
     public function can_create_the_personal_token()
     {
-        $this->actingAs($this->user());
+        $this->actingAs($this->makeUser());
 
         Livewire::test(CreatePersonalAccessToken::class)
             ->set('name', '...')
@@ -34,7 +35,7 @@ class CreatePersonalAccessTokenTest extends TestCase
     /** @test */
     public function cant_create_the_personal_token_if_the_name_is_empty()
     {
-        $this->actingAs($this->user());
+        $this->actingAs($this->makeUser());
 
         Livewire::test(CreatePersonalAccessToken::class)
             ->call('createPersonalAccessToken')
@@ -44,11 +45,24 @@ class CreatePersonalAccessTokenTest extends TestCase
     /** @test */
     public function cant_create_the_personal_token_if_the_name_is_longer_than_255_characters()
     {
-        $this->actingAs($this->user());
+        $this->actingAs($this->makeUser());
 
         Livewire::test(CreatePersonalAccessToken::class)
             ->set('name', str_repeat('x', 256))
             ->call('createPersonalAccessToken')
             ->assertHasErrors(['name' => 'max']);
+    }
+
+    protected function makeUser(): UserWithPassport
+    {
+        $user = new UserWithPassport();
+
+        $user->forceFill([
+            'name'     => $this->faker->name,
+            'email'    => $this->faker->safeEmail,
+            'password' => Hash::make('password'),
+        ])->save();
+
+        return $user;
     }
 }

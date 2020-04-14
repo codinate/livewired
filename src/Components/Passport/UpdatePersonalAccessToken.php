@@ -11,15 +11,17 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace KodeKeep\Livewired\Components;
+namespace KodeKeep\Livewired\Components\Passport;
 
-use Laravel\Sanctum\PersonalAccessToken;
+use KodeKeep\Livewired\Components\Component;
+use KodeKeep\Livewired\Components\Concerns\InteractsWithUser;
+use Laravel\Passport\Token;
 
 class UpdatePersonalAccessToken extends Component
 {
-    use Concerns\InteractsWithUser;
+    use InteractsWithUser;
 
-    public ?int $tokenId = null;
+    public $tokenId;
 
     public ?string $name = null;
 
@@ -27,7 +29,7 @@ class UpdatePersonalAccessToken extends Component
         'editPersonalAccessToken' => 'editPersonalAccessToken',
     ];
 
-    public function editPersonalAccessToken(int $tokenId): void
+    public function editPersonalAccessToken($tokenId): void
     {
         $this->tokenId = $tokenId;
 
@@ -43,7 +45,7 @@ class UpdatePersonalAccessToken extends Component
         $this->emit('refreshPersonalAccessTokens');
     }
 
-    public function getPersonalAccessTokenProperty(): ?PersonalAccessToken
+    public function getPersonalAccessTokenProperty(): ?Token
     {
         return $this->user->tokens()->find($this->tokenId);
     }

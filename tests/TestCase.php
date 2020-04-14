@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace KodeKeep\Livewired\Tests;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -21,7 +22,7 @@ use KodeKeep\Livewired\Providers\LivewiredServiceProvider;
 use KodeKeep\NotificationMethods\Providers\NotificationMethodsServiceProvider;
 use KodeKeep\Teams\Contracts\TeamInvitation;
 use KodeKeep\Teams\Providers\TeamsServiceProvider;
-use Laravel\Sanctum\PersonalAccessToken;
+use Laravel\Passport\PassportServiceProvider;
 use Laravel\Sanctum\SanctumServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Mpociot\VatCalculator\VatCalculatorServiceProvider;
@@ -45,6 +46,8 @@ abstract class TestCase extends Orchestra
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
         $this->artisan('migrate', ['--database' => 'testbench'])->run();
+
+        $this->artisan('passport:install')->run();
     }
 
     protected function getEnvironmentSetUp($app): void
@@ -115,6 +118,7 @@ abstract class TestCase extends Orchestra
             LivewiredServiceProvider::class,
             LivewireServiceProvider::class,
             NotificationMethodsServiceProvider::class,
+            PassportServiceProvider::class,
             PersonalDataExportServiceProvider::class,
             SanctumServiceProvider::class,
             TeamsServiceProvider::class,
@@ -151,13 +155,17 @@ abstract class TestCase extends Orchestra
         return $team;
     }
 
-    protected function createToken(User $user): PersonalAccessToken
+    protected function createToken(Model $user)
     {
-        $token = $user->createToken('dummy')->accessToken;
+        $token = $user->createToken('dummy');
 
         $user->refresh();
 
-        return $token;
+        if (! empty($token->token)) {
+            return $token->token;
+        }
+
+        return $token->accessToken;
     }
 
     protected function createInvitation(Team $team, User $user): TeamInvitation

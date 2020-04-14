@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace KodeKeep\Livewired\Feature\Components;
+namespace KodeKeep\Livewired\Tests\Feature\Components\Sanctum;
 
-use KodeKeep\Livewired\Components\ManagePersonalAccessTokens;
+use KodeKeep\Livewired\Components\Sanctum\ManagePersonalAccessTokens;
 use KodeKeep\Livewired\Tests\TestCase;
 use Livewire\Livewire;
 

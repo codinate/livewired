@@ -11,13 +11,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace KodeKeep\Livewired\Components;
+namespace KodeKeep\Livewired\Components\Passport;
 
 use Illuminate\Support\Collection;
+use KodeKeep\Livewired\Components\Component;
+use KodeKeep\Livewired\Components\Concerns\InteractsWithUser;
 
 class ManagePersonalAccessTokens extends Component
 {
-    use Concerns\InteractsWithUser;
+    use InteractsWithUser;
 
     protected $listeners = [
         'refreshPersonalAccessTokens' => '$refresh',

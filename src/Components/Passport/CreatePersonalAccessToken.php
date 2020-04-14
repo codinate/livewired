@@ -11,11 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace KodeKeep\Livewired\Components;
+namespace KodeKeep\Livewired\Components\Passport;
+
+use KodeKeep\Livewired\Components\Component;
+use KodeKeep\Livewired\Components\Concerns\InteractsWithUser;
 
 class CreatePersonalAccessToken extends Component
 {
-    use Concerns\InteractsWithUser;
+    use InteractsWithUser;
 
     public ?string $name = null;
 
@@ -27,7 +30,7 @@ class CreatePersonalAccessToken extends Component
             'name' => ['required', 'max:255'],
         ]);
 
-        $this->accessToken = $this->user->createToken($this->name)->plainTextToken;
+        $this->accessToken = $this->user->createToken($this->name)->accessToken;
 
         $this->emit('refreshPersonalAccessTokens');
     }
