@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## 0.6.0 - 2020-04-17
+
+### Changed
+
+- Add `laravel/passport` components
+- Add `laravel/sanctum` components
+
 ## 0.5.6 - 2020-03-27
 
-### Chaned
+### Changed
 
 - Removed redirects after switching teams to let `before` and `after` handle them if needed.
 
