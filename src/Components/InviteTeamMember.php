@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace KodeKeep\Livewired\Components;
 
-use Illuminate\Contracts\Auth\Authenticatable;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 use KodeKeep\Teams\Contracts\Team;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class InviteTeamMember extends Component
 {
@@ -80,8 +81,8 @@ class InviteTeamMember extends Component
             'role'         => $this->role,
             'permissions'  => $this->permissions,
             'email'        => $this->email,
-            'accept_token' => Str::random(40),
-            'reject_token' => Str::random(40),
+            'accept_token' => Uuid::uuid4(),
+            'reject_token' => Uuid::uuid4(),
         ]);
     }
 }
